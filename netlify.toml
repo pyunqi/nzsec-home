@@ -1,0 +1,20 @@
+[build]
+  publish   = "public"
+  functions = "netlify/functions"
+
+# Serve static assets from /public directly via CDN;
+# everything else is handled by the Express Lambda.
+[[redirects]]
+  from   = "/css/*"
+  to     = "/css/:splat"
+  status = 200
+
+[[redirects]]
+  from   = "/js/*"
+  to     = "/js/:splat"
+  status = 200
+
+[[redirects]]
+  from   = "/*"
+  to     = "/.netlify/functions/server/:splat"
+  status = 200

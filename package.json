@@ -1,0 +1,19 @@
+{
+  "name": "nzsec-home",
+  "version": "1.0.0",
+  "description": "NZSEC website with CMS backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-session": "^2.1.1",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "serverless-http": "^4.0.0"
+  }
+}

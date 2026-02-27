@@ -1,0 +1,150 @@
+{
+  "hero": {
+    "location": "Auckland, New Zealand",
+    "title": {
+      "en": "Your Gateway to Academic<br>Excellence in New Zealand",
+      "zh": "您在新西兰追求<br>学术卓越的桥梁"
+    },
+    "subtitle": {
+      "en": "Connecting international students with top universities and research supervisors across New Zealand",
+      "zh": "连接国际学生与新西兰顶尖大学及科研导师"
+    },
+    "ctaPrimary": { "en": "Get Started", "zh": "立即咨询" },
+    "ctaSecondary": { "en": "Our Services", "zh": "了解服务" }
+  },
+  "about": {
+    "label": { "en": "Who We Are", "zh": "关于我们" },
+    "title": {
+      "en": "Bridging International Students to New Zealand's Academic World",
+      "zh": "连接国际学生与新西兰的学术世界"
+    },
+    "body1": {
+      "en": "New Zealand Science Education Centre (NZSEC) is dedicated to facilitating educational exchange and cooperation between international students and New Zealand's leading academic institutions. Based in Auckland, we specialise in helping undergraduate, postgraduate, and doctoral students find the right universities and research supervisors to achieve their academic goals.",
+      "zh": "新西兰教科文中心（NZSEC）致力于促进国际学生与新西兰顶尖学术机构之间的教育交流与合作。我们总部位于奥克兰，专注于帮助本科生、硕士生和博士生找到适合的大学和科研导师，助力实现学术目标。"
+    },
+    "body2": {
+      "en": "Our team maintains strong, established relationships with key academic partners across New Zealand, ensuring that every student receives personalised guidance and support throughout their academic journey — from initial consultation to successful placement.",
+      "zh": "我们的团队与新西兰各地的主要学术合作伙伴保持着深厚、稳固的合作关系，确保每位学生在整个学术旅程中都能获得个性化的指导与支持——从初步咨询到成功录取。"
+    },
+    "stats": [
+      { "number": "100+", "label": { "en": "Students Placed", "zh": "学员成功录取" } },
+      { "number": "8+",   "label": { "en": "Partner Universities", "zh": "合作院校" } },
+      { "number": "50+",  "label": { "en": "Research Supervisors", "zh": "合作导师" } },
+      { "number": "5+",   "label": { "en": "Years Experience", "zh": "年丰富经验" } }
+    ]
+  },
+  "services": {
+    "label": { "en": "What We Do", "zh": "我们的服务" },
+    "title": {
+      "en": "Comprehensive Support for Your Academic Journey",
+      "zh": "全程支持您的学术旅程"
+    },
+    "items": [
+      {
+        "icon": "🎓",
+        "title": { "en": "University Placement", "zh": "院校申请" },
+        "body": {
+          "en": "We help you identify and apply to the most suitable New Zealand universities based on your academic background, research interests, and career goals.",
+          "zh": "根据您的学术背景、研究方向和职业目标，为您精准匹配并协助申请最适合的新西兰大学。"
+        }
+      },
+      {
+        "icon": "🔬",
+        "title": { "en": "Supervisor Matching", "zh": "导师匹配" },
+        "body": {
+          "en": "Connect with experienced research supervisors in your field. We facilitate introductions between doctoral and postgraduate students and leading academics across New Zealand.",
+          "zh": "精准对接各领域经验丰富的科研导师。我们为博士生和研究生与新西兰各大学顶尖学者搭建沟通桥梁。"
+        }
+      },
+      {
+        "icon": "📋",
+        "title": { "en": "Academic Consultation", "zh": "学术咨询" },
+        "body": {
+          "en": "Expert guidance on New Zealand's education system, application timelines, scholarship opportunities, and academic pathways to help you make informed decisions.",
+          "zh": "专业指导新西兰教育体系、申请时间节点、奖学金机会及学术发展路径，助您做出明智决策。"
+        }
+      },
+      {
+        "icon": "🤝",
+        "title": { "en": "Partnership Programs", "zh": "合作项目" },
+        "body": {
+          "en": "Leverage our extensive network of institutional partnerships to access exclusive research opportunities, collaborative programs, and academic exchange initiatives.",
+          "zh": "借助我们广泛的机构合作网络，获取独家科研机会、合作项目及学术交流计划。"
+        }
+      }
+    ]
+  },
+  "whyUs": {
+    "label": { "en": "Our Advantage", "zh": "我们的优势" },
+    "title": {
+      "en": "Why Choose NZSEC",
+      "zh": "为什么选择 NZSEC"
+    },
+    "items": [
+      {
+        "icon": "🏛️",
+        "title": { "en": "Strong Institutional Partnerships", "zh": "强大的机构合作关系" },
+        "body": {
+          "en": "We maintain strong, established relationships with key universities, research centres, and academic institutions across New Zealand, giving our students a significant advantage throughout the application process.",
+          "zh": "我们与新西兰各地主要大学、科研中心和学术机构建立了深厚、稳固的合作关系，为学生在申请过程中提供显著优势。"
+        }
+      },
+      {
+        "icon": "👤",
+        "title": { "en": "Personalised Service", "zh": "个性化服务" },
+        "body": {
+          "en": "Every student is unique. We provide tailored guidance designed around your specific academic background, research interests, and personal goals — not a one-size-fits-all approach.",
+          "zh": "每位学生都是独一无二的。我们根据您的学术背景、研究兴趣和个人目标，提供量身定制的指导，而非千篇一律的方案。"
+        }
+      },
+      {
+        "icon": "🌏",
+        "title": { "en": "Bilingual Cultural Bridge", "zh": "中英双语文化桥梁" },
+        "body": {
+          "en": "Our bilingual team deeply understands both Chinese and New Zealand educational cultures, ensuring seamless communication and helping students navigate cultural differences with confidence.",
+          "zh": "我们的双语团队深刻理解中新两国的教育文化，确保顺畅的沟通，帮助学生自信地跨越文化差异。"
+        }
+      },
+      {
+        "icon": "🎯",
+        "title": { "en": "Research-Focused Expertise", "zh": "专注学术科研领域" },
+        "body": {
+          "en": "We specialise in postgraduate and doctoral placements, with deep expertise in research programme requirements, supervisor expectations, and funding opportunities across New Zealand's universities.",
+          "zh": "我们专注于研究生和博士生的学术安置，深入了解科研项目要求、导师期望以及新西兰各大学的资助机会。"
+        }
+      }
+    ]
+  },
+  "contact": {
+    "label": { "en": "Get In Touch", "zh": "联系我们" },
+    "title": {
+      "en": "Start Your New Zealand Academic Journey",
+      "zh": "开启您的新西兰学术之旅"
+    },
+    "address": "Auckland, New Zealand",
+    "email": "info@nzsec.co.nz",
+    "phone": "+64 9 000 0000",
+    "wechat": {
+      "en": "Contact us for WeChat details",
+      "zh": "请联系我们获取微信号"
+    },
+    "form": {
+      "namePlaceholder":    { "en": "Your full name",                                   "zh": "请输入您的姓名" },
+      "emailPlaceholder":   { "en": "your@email.com",                                   "zh": "请输入您的邮箱地址" },
+      "messagePlaceholder": { "en": "Tell us about your academic background and goals…", "zh": "请描述您的学习背景和需求…" },
+      "selectDefault":      { "en": "-- Please select --",                              "zh": "-- 请选择 --" },
+      "submitBtn":          { "en": "Send Message",                                     "zh": "发送留言" },
+      "successMsg":         { "en": "✓ Thank you! We'll be in touch shortly.",          "zh": "✓ 感谢您的留言！我们将尽快与您联系。" }
+    }
+  },
+  "footer": {
+    "tagline": {
+      "en": "Auckland, New Zealand",
+      "zh": "新西兰 · 奥克兰"
+    },
+    "copyright": {
+      "en": "© 2026 New Zealand Science Education Centre. All rights reserved.",
+      "zh": "© 2026 新西兰教科文中心. 版权所有."
+    }
+  }
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <span class="en"><%= page.title.en %></span>
+    <span class="zh"><%= page.title.zh %></span>
+    | NZSEC
+  </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-lang="en">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">
+        <span class="logo-mark">NZSEC</span>
+        <span class="logo-name">
+          <span class="en">New Zealand Science Education Centre</span>
+          <span class="zh">新西兰教科文中心</span>
+        </span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#about"><span class="en">About</span><span class="zh">关于我们</span></a></li>
+        <li><a href="/#services"><span class="en">Services</span><span class="zh">服务</span></a></li>
+        <li><a href="/#why-us"><span class="en">Why NZSEC</span><span class="zh">为何选择我们</span></a></li>
+        <li><a href="/#contact"><span class="en">Contact</span><span class="zh">联系我们</span></a></li>
+        <% pages.filter(p => p.showInNav).sort((a, b) => a.order - b.order).forEach(function(p) { %>
+        <li>
+          <a href="/<%= p.slug %>" <%= page.id === p.id ? 'aria-current="page"' : '' %>>
+            <span class="en"><%= p.title.en %></span>
+            <span class="zh"><%= p.title.zh %></span>
+          </a>
+        </li>
+        <% }); %>
+      </ul>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+        <span class="en">中文</span>
+        <span class="zh">English</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE CONTENT ===== -->
+  <main style="padding-top: var(--nav-h, 72px)">
+    <div class="en"><%- page.content.en %></div>
+    <div class="zh"><%- page.content.zh %></div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">NZSEC</div>
+          <p class="en">New Zealand Science Education Centre</p>
+          <p class="zh">新西兰教科文中心</p>
+          <p class="footer-tagline">
+            <span class="en"><%= content.footer.tagline.en %></span>
+            <span class="zh"><%= content.footer.tagline.zh %></span>
+          </p>
+        </div>
+        <nav class="footer-nav">
+          <a href="/#about"><span class="en">About</span><span class="zh">关于我们</span></a>
+          <a href="/#services"><span class="en">Services</span><span class="zh">服务</span></a>
+          <a href="/#why-us"><span class="en">Why NZSEC</span><span class="zh">为何选择我们</span></a>
+          <a href="/#contact"><span class="en">Contact</span><span class="zh">联系我们</span></a>
+          <% pages.filter(p => p.showInNav).sort((a, b) => a.order - b.order).forEach(function(p) { %>
+          <a href="/<%= p.slug %>">
+            <span class="en"><%= p.title.en %></span>
+            <span class="zh"><%= p.title.zh %></span>
+          </a>
+          <% }); %>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="en"><%= content.footer.copyright.en %></p>
+        <p class="zh"><%= content.footer.copyright.zh %></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

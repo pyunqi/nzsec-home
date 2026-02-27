@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="New Zealand Science Education Centre (NZSEC) - Helping international students find universities and research supervisors in New Zealand | 帮助国际学生在新西兰寻找大学和科研导师">
+  <title>NZSEC | New Zealand Science Education Centre | 新西兰教科文中心</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-lang="en">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <span class="logo-mark">NZSEC</span>
+        <span class="logo-name">
+          <span class="en">New Zealand Science Education Centre</span>
+          <span class="zh">新西兰教科文中心</span>
+        </span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about"><span class="en">About</span><span class="zh">关于我们</span></a></li>
+        <li><a href="#services"><span class="en">Services</span><span class="zh">服务</span></a></li>
+        <li><a href="#why-us"><span class="en">Why NZSEC</span><span class="zh">为何选择我们</span></a></li>
+        <li><a href="#contact"><span class="en">Contact</span><span class="zh">联系我们</span></a></li>
+        <% pages.filter(p => p.showInNav).sort((a, b) => a.order - b.order).forEach(function(p) { %>
+        <li>
+          <a href="/<%= p.slug %>">
+            <span class="en"><%= p.title.en %></span>
+            <span class="zh"><%= p.title.zh %></span>
+          </a>
+        </li>
+        <% }); %>
+      </ul>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+        <span class="en">中文</span>
+        <span class="zh">English</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    <div class="container hero-content">
+      <p class="hero-location">
+        <span class="location-dot"></span>
+        <%- content.hero.location %>
+      </p>
+      <h1>
+        <span class="en"><%- content.hero.title.en %></span>
+        <span class="zh"><%- content.hero.title.zh %></span>
+      </h1>
+      <p class="hero-sub">
+        <span class="en"><%= content.hero.subtitle.en %></span>
+        <span class="zh"><%= content.hero.subtitle.zh %></span>
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">
+          <span class="en"><%= content.hero.ctaPrimary.en %></span>
+          <span class="zh"><%= content.hero.ctaPrimary.zh %></span>
+        </a>
+        <a href="#services" class="btn btn-ghost">
+          <span class="en"><%= content.hero.ctaSecondary.en %></span>
+          <span class="zh"><%= content.hero.ctaSecondary.zh %></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-label">
+        <span class="en"><%= content.about.label.en %></span>
+        <span class="zh"><%= content.about.label.zh %></span>
+      </div>
+      <h2 class="section-title">
+        <span class="en"><%= content.about.title.en %></span>
+        <span class="zh"><%= content.about.title.zh %></span>
+      </h2>
+      <div class="about-grid">
+        <div class="about-body">
+          <p class="en"><%= content.about.body1.en %></p>
+          <p class="zh"><%= content.about.body1.zh %></p>
+          <p class="en"><%= content.about.body2.en %></p>
+          <p class="zh"><%= content.about.body2.zh %></p>
+        </div>
+        <div class="about-stats">
+          <% content.about.stats.forEach(function(stat) { %>
+          <div class="stat">
+            <div class="stat-n"><%= stat.number %></div>
+            <div class="stat-l">
+              <span class="en"><%= stat.label.en %></span>
+              <span class="zh"><%= stat.label.zh %></span>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section id="services" class="section section-alt">
+    <div class="container">
+      <div class="section-label">
+        <span class="en"><%= content.services.label.en %></span>
+        <span class="zh"><%= content.services.label.zh %></span>
+      </div>
+      <h2 class="section-title">
+        <span class="en"><%= content.services.title.en %></span>
+        <span class="zh"><%= content.services.title.zh %></span>
+      </h2>
+      <div class="cards-grid">
+        <% content.services.items.forEach(function(item) { %>
+        <div class="card">
+          <div class="card-icon"><%= item.icon %></div>
+          <h3>
+            <span class="en"><%= item.title.en %></span>
+            <span class="zh"><%= item.title.zh %></span>
+          </h3>
+          <p class="en"><%= item.body.en %></p>
+          <p class="zh"><%= item.body.zh %></p>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY US ===== -->
+  <section id="why-us" class="section">
+    <div class="container">
+      <div class="section-label">
+        <span class="en"><%= content.whyUs.label.en %></span>
+        <span class="zh"><%= content.whyUs.label.zh %></span>
+      </div>
+      <h2 class="section-title">
+        <span class="en"><%= content.whyUs.title.en %></span>
+        <span class="zh"><%= content.whyUs.title.zh %></span>
+      </h2>
+      <div class="advantages">
+        <% content.whyUs.items.forEach(function(item) { %>
+        <div class="advantage">
+          <div class="adv-icon"><%= item.icon %></div>
+          <div class="adv-body">
+            <h3>
+              <span class="en"><%= item.title.en %></span>
+              <span class="zh"><%= item.title.zh %></span>
+            </h3>
+            <p class="en"><%= item.body.en %></p>
+            <p class="zh"><%= item.body.zh %></p>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="section section-alt">
+    <div class="container">
+      <div class="section-label">
+        <span class="en"><%= content.contact.label.en %></span>
+        <span class="zh"><%= content.contact.label.zh %></span>
+      </div>
+      <h2 class="section-title">
+        <span class="en"><%= content.contact.title.en %></span>
+        <span class="zh"><%= content.contact.title.zh %></span>
+      </h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="ci-icon">📍</span>
+            <div>
+              <strong><span class="en">Address</span><span class="zh">地址</span></strong>
+              <p><%= content.contact.address %></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="ci-icon">📧</span>
+            <div>
+              <strong><span class="en">Email</span><span class="zh">邮箱</span></strong>
+              <p><a href="mailto:<%= content.contact.email %>"><%= content.contact.email %></a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="ci-icon">📞</span>
+            <div>
+              <strong><span class="en">Phone</span><span class="zh">电话</span></strong>
+              <p><%= content.contact.phone %></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="ci-icon">💬</span>
+            <div>
+              <strong>WeChat</strong>
+              <p>
+                <span class="en"><%= content.contact.wechat.en %></span>
+                <span class="zh"><%= content.contact.wechat.zh %></span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name"><span class="en">Full Name</span><span class="zh">姓名</span></label>
+              <input type="text" id="name" name="name" required
+                data-ph-en="<%= content.contact.form.namePlaceholder.en %>"
+                data-ph-zh="<%= content.contact.form.namePlaceholder.zh %>">
+            </div>
+            <div class="form-group">
+              <label for="email"><span class="en">Email</span><span class="zh">邮箱</span></label>
+              <input type="email" id="email" name="email" required
+                data-ph-en="<%= content.contact.form.emailPlaceholder.en %>"
+                data-ph-zh="<%= content.contact.form.emailPlaceholder.zh %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="level"><span class="en">Study Level</span><span class="zh">学习阶段</span></label>
+            <select id="level" name="level">
+              <option value="" id="selectDefault"
+                data-ph-en="<%= content.contact.form.selectDefault.en %>"
+                data-ph-zh="<%= content.contact.form.selectDefault.zh %>">
+                <%= content.contact.form.selectDefault.en %>
+              </option>
+              <option value="undergraduate">Undergraduate / 本科生</option>
+              <option value="postgraduate">Postgraduate / 硕士研究生</option>
+              <option value="phd">PhD / 博士研究生</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message"><span class="en">Message</span><span class="zh">留言</span></label>
+            <textarea id="message" name="message" rows="4"
+              data-ph-en="<%= content.contact.form.messagePlaceholder.en %>"
+              data-ph-zh="<%= content.contact.form.messagePlaceholder.zh %>"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">
+            <span class="en"><%= content.contact.form.submitBtn.en %></span>
+            <span class="zh"><%= content.contact.form.submitBtn.zh %></span>
+          </button>
+          <div class="form-success" id="formSuccess">
+            <span class="en"><%= content.contact.form.successMsg.en %></span>
+            <span class="zh"><%= content.contact.form.successMsg.zh %></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">NZSEC</div>
+          <p class="en">New Zealand Science Education Centre</p>
+          <p class="zh">新西兰教科文中心</p>
+          <p class="footer-tagline">
+            <span class="en"><%= content.footer.tagline.en %></span>
+            <span class="zh"><%= content.footer.tagline.zh %></span>
+          </p>
+        </div>
+        <nav class="footer-nav">
+          <a href="#about"><span class="en">About</span><span class="zh">关于我们</span></a>
+          <a href="#services"><span class="en">Services</span><span class="zh">服务</span></a>
+          <a href="#why-us"><span class="en">Why NZSEC</span><span class="zh">为何选择我们</span></a>
+          <a href="#contact"><span class="en">Contact</span><span class="zh">联系我们</span></a>
+          <% pages.filter(p => p.showInNav).sort((a, b) => a.order - b.order).forEach(function(p) { %>
+          <a href="/<%= p.slug %>">
+            <span class="en"><%= p.title.en %></span>
+            <span class="zh"><%= p.title.zh %></span>
+          </a>
+          <% }); %>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="en"><%= content.footer.copyright.en %></p>
+        <p class="zh"><%= content.footer.copyright.zh %></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

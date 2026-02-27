@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NZSEC Admin</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+      font-size: 14px;
+    }
+    /* ---- Header ---- */
+    .header {
+      background: #0f3460;
+      color: #fff;
+      padding: 0 32px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+    .header-actions { display: flex; gap: 12px; align-items: center; }
+    .header-actions a, .header-actions button {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: background 0.2s;
+    }
+    .btn-preview {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+    .btn-preview:hover { background: rgba(255,255,255,0.25); }
+    .btn-logout {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.8);
+    }
+    .btn-logout:hover { background: rgba(255,255,255,0.2); }
+
+    /* ---- Save banner ---- */
+    .save-banner {
+      background: #f0fdf4;
+      border-bottom: 1px solid #86efac;
+      color: #15803d;
+      padding: 10px 32px;
+      font-weight: 500;
+    }
+
+    /* ---- Main layout ---- */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+    .page-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .page-desc {
+      color: #64748b;
+      margin-bottom: 32px;
+      font-size: 13px;
+    }
+
+    /* ---- Section card ---- */
+    details {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    summary {
+      padding: 18px 24px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+      list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before {
+      content: '▶';
+      font-size: 11px;
+      color: #94a3b8;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    details[open] summary::before { transform: rotate(90deg); }
+    summary .section-badge {
+      font-size: 11px;
+      font-weight: 600;
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-left: auto;
+    }
+
+    .section-body {
+      padding: 0 24px 28px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    /* ---- Field grid ---- */
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 24px;
+      margin-top: 20px;
+    }
+    .field-full { grid-column: 1 / -1; }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    label.field-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .lang-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-left: 4px;
+    }
+    .lang-en { background: #dbeafe; color: #1d4ed8; }
+    .lang-zh { background: #fce7f3; color: #be185d; }
+
+    input[type="text"],
+    textarea {
+      font-family: inherit;
+      font-size: 14px;
+      color: #0f172a;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 9px 12px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: vertical;
+    }
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 0 3px rgba(14,165,233,0.1);
+      background: #fff;
+    }
+
+    /* ---- Array item ---- */
+    .array-item {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+      background: #fafafa;
+    }
+    .array-item-header {
+      font-size: 12px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* ---- Divider ---- */
+    .divider {
+      border: none;
+      border-top: 1px solid #f1f5f9;
+      margin: 20px 0;
+    }
+
+    /* ---- Submit bar ---- */
+    .submit-bar {
+      position: sticky;
+      bottom: 0;
+      background: #fff;
+      border-top: 1px solid #e2e8f0;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-save {
+      background: #0f3460;
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 11px 36px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-save:hover { background: #1a4a7a; }
+    .save-note { font-size: 13px; color: #94a3b8; }
+
+    @media (max-width: 640px) {
+      .field-grid { grid-template-columns: 1fr; }
+      .main { padding: 20px 16px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="header">
+  <div class="header-logo">NZSEC Admin</div>
+  <div class="header-actions">
+    <a href="/" target="_blank" class="btn-preview">Preview Site ↗</a>
+    <form method="POST" action="/admin/logout" style="display:inline">
+      <button type="submit" class="btn-logout">Sign Out</button>
+    </form>
+  </div>
+</header>
+
+<% if (saved) { %>
+<div class="save-banner">✓ Changes saved successfully.</div>
+<% } %>
+
+<!-- ===== Main Form ===== -->
+<div class="main">
+  <h1 class="page-title">Content Editor</h1>
+  <p class="page-desc">Edit all bilingual content below. Click a section to expand it, then save at the bottom.</p>
+
+  <form method="POST" action="/admin/save">
+
+    <!-- Hidden counts for arrays -->
+    <input type="hidden" name="about.stats.count"   value="<%= content.about.stats.length %>">
+    <input type="hidden" name="services.items.count" value="<%= content.services.items.length %>">
+    <input type="hidden" name="whyUs.items.count"    value="<%= content.whyUs.items.length %>">
+
+    <!-- ==================== HERO ==================== -->
+    <details open>
+      <summary>Hero <span class="section-badge">5 fields</span></summary>
+      <div class="section-body">
+        <div class="field-grid">
+          <div class="field-group field-full">
+            <label class="field-label">Location</label>
+            <input type="text" name="hero.location" value="<%= content.hero.location %>">
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Title <span class="lang-tag lang-en">EN</span></label>
+            <textarea name="hero.title.en" rows="2"><%= content.hero.title.en %></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Title <span class="lang-tag lang-zh">ZH</span></label>
+            <textarea name="hero.title.zh" rows="2"><%= content.hero.title.zh %></textarea>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Subtitle <span class="lang-tag lang-en">EN</span></label>
+            <textarea name="hero.subtitle.en" rows="2"><%= content.hero.subtitle.en %></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Subtitle <span class="lang-tag lang-zh">ZH</span></label>
+            <textarea name="hero.subtitle.zh" rows="2"><%= content.hero.subtitle.zh %></textarea>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Primary CTA <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="hero.ctaPrimary.en" value="<%= content.hero.ctaPrimary.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Primary CTA <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="hero.ctaPrimary.zh" value="<%= content.hero.ctaPrimary.zh %>">
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Secondary CTA <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="hero.ctaSecondary.en" value="<%= content.hero.ctaSecondary.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Secondary CTA <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="hero.ctaSecondary.zh" value="<%= content.hero.ctaSecondary.zh %>">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ==================== ABOUT ==================== -->
+    <details>
+      <summary>About <span class="section-badge">4 fields + <%= content.about.stats.length %> stats</span></summary>
+      <div class="section-body">
+        <div class="field-grid">
+          <div class="field-group">
+            <label class="field-label">Section Label <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="about.label.en" value="<%= content.about.label.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Section Label <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="about.label.zh" value="<%= content.about.label.zh %>">
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Title <span class="lang-tag lang-en">EN</span></label>
+            <textarea name="about.title.en" rows="2"><%= content.about.title.en %></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Title <span class="lang-tag lang-zh">ZH</span></label>
+            <textarea name="about.title.zh" rows="2"><%= content.about.title.zh %></textarea>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Body Paragraph 1 <span class="lang-tag lang-en">EN</span></label>
+            <textarea name="about.body1.en" rows="5"><%= content.about.body1.en %></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Body Paragraph 1 <span class="lang-tag lang-zh">ZH</span></label>
+            <textarea name="about.body1.zh" rows="5"><%= content.about.body1.zh %></textarea>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Body Paragraph 2 <span class="lang-tag lang-en">EN</span></label>
+            <textarea name="about.body2.en" rows="5"><%= content.about.body2.en %></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Body Paragraph 2 <span class="lang-tag lang-zh">ZH</span></label>
+            <textarea name="about.body2.zh" rows="5"><%= content.about.body2.zh %></textarea>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <% content.about.stats.forEach(function(stat, i) { %>
+        <div class="array-item">
+          <div class="array-item-header">Stat #<%= i + 1 %></div>
+          <div class="field-grid">
+            <div class="field-group field-full">
+              <label class="field-label">Number</label>
+              <input type="text" name="about.stats[<%= i %>].number" value="<%= stat.number %>">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Label <span class="lang-tag lang-en">EN</span></label>
+              <input type="text" name="about.stats[<%= i %>].label.en" value="<%= stat.label.en %>">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Label <span class="lang-tag lang-zh">ZH</span></label>
+              <input type="text" name="about.stats[<%= i %>].label.zh" value="<%= stat.label.zh %>">
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </details>
+
+    <!-- ==================== SERVICES ==================== -->
+    <details>
+      <summary>Services <span class="section-badge"><%= content.services.items.length %> items</span></summary>
+      <div class="section-body">
+        <div class="field-grid">
+          <div class="field-group">
+            <label class="field-label">Section Label <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="services.label.en" value="<%= content.services.label.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Section Label <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="services.label.zh" value="<%= content.services.label.zh %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Title <span class="lang-tag lang-en">EN</span></label>
+            <textarea name="services.title.en" rows="2"><%= content.services.title.en %></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Title <span class="lang-tag lang-zh">ZH</span></label>
+            <textarea name="services.title.zh" rows="2"><%= content.services.title.zh %></textarea>
+          </div>
+        </div>
+
+        <% content.services.items.forEach(function(item, i) { %>
+        <div class="array-item">
+          <div class="array-item-header">Service #<%= i + 1 %></div>
+          <div class="field-grid">
+            <div class="field-group field-full">
+              <label class="field-label">Icon (emoji)</label>
+              <input type="text" name="services.items[<%= i %>].icon" value="<%= item.icon %>">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Title <span class="lang-tag lang-en">EN</span></label>
+              <input type="text" name="services.items[<%= i %>].title.en" value="<%= item.title.en %>">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Title <span class="lang-tag lang-zh">ZH</span></label>
+              <input type="text" name="services.items[<%= i %>].title.zh" value="<%= item.title.zh %>">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Body <span class="lang-tag lang-en">EN</span></label>
+              <textarea name="services.items[<%= i %>].body.en" rows="4"><%= item.body.en %></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Body <span class="lang-tag lang-zh">ZH</span></label>
+              <textarea name="services.items[<%= i %>].body.zh" rows="4"><%= item.body.zh %></textarea>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </details>
+
+    <!-- ==================== WHY US ==================== -->
+    <details>
+      <summary>Why NZSEC <span class="section-badge"><%= content.whyUs.items.length %> items</span></summary>
+      <div class="section-body">
+        <div class="field-grid">
+          <div class="field-group">
+            <label class="field-label">Section Label <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="whyUs.label.en" value="<%= content.whyUs.label.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Section Label <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="whyUs.label.zh" value="<%= content.whyUs.label.zh %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Title <span class="lang-tag lang-en">EN</span></label>
+            <textarea name="whyUs.title.en" rows="2"><%= content.whyUs.title.en %></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Title <span class="lang-tag lang-zh">ZH</span></label>
+            <textarea name="whyUs.title.zh" rows="2"><%= content.whyUs.title.zh %></textarea>
+          </div>
+        </div>
+
+        <% content.whyUs.items.forEach(function(item, i) { %>
+        <div class="array-item">
+          <div class="array-item-header">Advantage #<%= i + 1 %></div>
+          <div class="field-grid">
+            <div class="field-group field-full">
+              <label class="field-label">Icon (emoji)</label>
+              <input type="text" name="whyUs.items[<%= i %>].icon" value="<%= item.icon %>">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Title <span class="lang-tag lang-en">EN</span></label>
+              <input type="text" name="whyUs.items[<%= i %>].title.en" value="<%= item.title.en %>">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Title <span class="lang-tag lang-zh">ZH</span></label>
+              <input type="text" name="whyUs.items[<%= i %>].title.zh" value="<%= item.title.zh %>">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Body <span class="lang-tag lang-en">EN</span></label>
+              <textarea name="whyUs.items[<%= i %>].body.en" rows="4"><%= item.body.en %></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Body <span class="lang-tag lang-zh">ZH</span></label>
+              <textarea name="whyUs.items[<%= i %>].body.zh" rows="4"><%= item.body.zh %></textarea>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </details>
+
+    <!-- ==================== CONTACT ==================== -->
+    <details>
+      <summary>Contact <span class="section-badge">info + form labels</span></summary>
+      <div class="section-body">
+        <div class="field-grid">
+          <div class="field-group">
+            <label class="field-label">Section Label <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="contact.label.en" value="<%= content.contact.label.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Section Label <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="contact.label.zh" value="<%= content.contact.label.zh %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Title <span class="lang-tag lang-en">EN</span></label>
+            <textarea name="contact.title.en" rows="2"><%= content.contact.title.en %></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Title <span class="lang-tag lang-zh">ZH</span></label>
+            <textarea name="contact.title.zh" rows="2"><%= content.contact.title.zh %></textarea>
+          </div>
+
+          <div class="field-group field-full"><hr class="divider"></div>
+
+          <div class="field-group field-full">
+            <label class="field-label">Address</label>
+            <input type="text" name="contact.address" value="<%= content.contact.address %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email</label>
+            <input type="text" name="contact.email" value="<%= content.contact.email %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Phone</label>
+            <input type="text" name="contact.phone" value="<%= content.contact.phone %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">WeChat note <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="contact.wechat.en" value="<%= content.contact.wechat.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">WeChat note <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="contact.wechat.zh" value="<%= content.contact.wechat.zh %>">
+          </div>
+
+          <div class="field-group field-full"><hr class="divider"></div>
+
+          <!-- Form labels -->
+          <div class="field-group">
+            <label class="field-label">Name placeholder <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="contact.form.namePlaceholder.en" value="<%= content.contact.form.namePlaceholder.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Name placeholder <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="contact.form.namePlaceholder.zh" value="<%= content.contact.form.namePlaceholder.zh %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email placeholder <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="contact.form.emailPlaceholder.en" value="<%= content.contact.form.emailPlaceholder.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email placeholder <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="contact.form.emailPlaceholder.zh" value="<%= content.contact.form.emailPlaceholder.zh %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Message placeholder <span class="lang-tag lang-en">EN</span></label>
+            <textarea name="contact.form.messagePlaceholder.en" rows="2"><%= content.contact.form.messagePlaceholder.en %></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Message placeholder <span class="lang-tag lang-zh">ZH</span></label>
+            <textarea name="contact.form.messagePlaceholder.zh" rows="2"><%= content.contact.form.messagePlaceholder.zh %></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Select default <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="contact.form.selectDefault.en" value="<%= content.contact.form.selectDefault.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Select default <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="contact.form.selectDefault.zh" value="<%= content.contact.form.selectDefault.zh %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Submit button <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="contact.form.submitBtn.en" value="<%= content.contact.form.submitBtn.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Submit button <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="contact.form.submitBtn.zh" value="<%= content.contact.form.submitBtn.zh %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Success message <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="contact.form.successMsg.en" value="<%= content.contact.form.successMsg.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Success message <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="contact.form.successMsg.zh" value="<%= content.contact.form.successMsg.zh %>">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ==================== FOOTER ==================== -->
+    <details>
+      <summary>Footer <span class="section-badge">2 fields</span></summary>
+      <div class="section-body">
+        <div class="field-grid">
+          <div class="field-group">
+            <label class="field-label">Tagline <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="footer.tagline.en" value="<%= content.footer.tagline.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Tagline <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="footer.tagline.zh" value="<%= content.footer.tagline.zh %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Copyright <span class="lang-tag lang-en">EN</span></label>
+            <input type="text" name="footer.copyright.en" value="<%= content.footer.copyright.en %>">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Copyright <span class="lang-tag lang-zh">ZH</span></label>
+            <input type="text" name="footer.copyright.zh" value="<%= content.footer.copyright.zh %>">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ==================== SAVE BAR ==================== -->
+    <div class="submit-bar">
+      <button type="submit" class="btn-save">Save All Changes</button>
+      <span class="save-note">Changes are saved immediately to content.json</span>
+    </div>
+
+  </form>
+</div>
+
+</body>
+</html>
