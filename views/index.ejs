@@ -14,7 +14,9 @@
   <!-- ===== INTRO ANIMATION ===== -->
   <div id="introOverlay" style="
     position: fixed; inset: 0; z-index: 9999;
-    background: rgba(0,0,0,0.88);
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     display: flex; align-items: center; justify-content: center;
     transition: opacity 0.8s ease;
   ">
@@ -22,10 +24,10 @@
       src="/videos/intro.mp4"
       autoplay muted playsinline
       style="
-        max-width: 82vw;
-        max-height: 82vh;
-        border-radius: 12px;
-        box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+        max-width: 92vw;
+        max-height: 90vh;
+        border-radius: 14px;
+        box-shadow: 0 40px 100px rgba(0,0,0,0.5);
         display: block;
       "
     ></video>
