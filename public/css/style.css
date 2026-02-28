@@ -96,13 +96,23 @@ body[data-lang="zh"] .en { display: none !important; }
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  text-decoration: none;
 }
 
-.logo-img {
-  height: 46px;
+.logo-mark {
+  height: 48px;
   width: auto;
   display: block;
+  flex-shrink: 0;
 }
+
+.logo-wordmark {
+  height: 32px;
+  width: auto;
+  display: none;
+}
+
+@media (min-width: 860px) { .logo-wordmark { display: block; } }
 
 .nav-links {
   display: flex;
