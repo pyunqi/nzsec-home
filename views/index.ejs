@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="New Zealand Science Education Centre (NZSEC) - Helping international students find universities and research supervisors in New Zealand | 帮助国际学生在新西兰寻找大学和科研导师">
   <title>NZSEC | New Zealand Science Education Centre | 新西兰教科文中心</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+  <link href="https://fonts.loli.net/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body data-lang="en">
@@ -14,7 +14,7 @@
   <!-- ===== INTRO ANIMATION ===== -->
   <div id="introOverlay" style="
     position: fixed; inset: 0; z-index: 9999;
-    background: #000;
+    background: rgba(0,0,0,0.88);
     display: flex; align-items: center; justify-content: center;
     transition: opacity 0.8s ease;
   ">
@@ -22,9 +22,11 @@
       src="/videos/intro.mp4"
       autoplay muted playsinline
       style="
-        max-width: 100%; max-height: 100%;
-        width: 100%; height: 100%;
-        object-fit: contain;
+        max-width: 82vw;
+        max-height: 82vh;
+        border-radius: 12px;
+        box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+        display: block;
       "
     ></video>
     <button id="introSkip" style="
