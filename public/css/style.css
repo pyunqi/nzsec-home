@@ -270,6 +270,52 @@ body[data-lang="zh"] .en { display: none !important; }
   flex-wrap: wrap;
 }
 
+/* S.E.C. pillars */
+.sec-pillars {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 52px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+.sec-pillar {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.sec-letter {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.sec-dot {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--sky-500);
+  line-height: 1;
+}
+
+.sec-word {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.sec-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(255,255,255,0.18);
+  margin: 0 28px;
+}
+
 /* =====================
    BUTTONS
    ===================== */
